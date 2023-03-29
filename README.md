@@ -1,4 +1,4 @@
-<div align="center"><img src="./img/GeoAnnotator_cc.svg" alt="GeoAnnotator logo" />
+<div align="center"><img src="./img/geoAnnotator_logo_CC.svg" alt="GeoAnnotator logo" />
 
 # GeoAnnotator
 
