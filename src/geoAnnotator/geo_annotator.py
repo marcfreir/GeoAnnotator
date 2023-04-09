@@ -18,49 +18,21 @@ window.title("App")
 main_menu = Menu(window)
 window.config(menu=main_menu)
 
-# Open image
-def open_image():
+print(os.path.expanduser('~\Documents'))
 
-    global panel_image
-    # Open a file chooser dialog and allow the user to select an input
-    # Image
-    img_path = filedialog.askopenfilename()
-    # ensure a file path was selected
-    if len(img_path) > 0:
-        # load the image from disk
-        image_to_open = cv2.imread(img_path)
-        # convert the images to PIL format...
-        image_to_open = Image.fromarray(image_to_open)
-        # ...and then to ImageTk format
-        image_to_open = ImageTk.PhotoImage(image_to_open)
 
-        # if the panels are None, initialize them
-        if panel_image is None:
-            # The panel image will store our original image
-            panel_image = Label(image=image_to_open)
-            panel_image.image_to_open = image_to_open
-            panel_image.pack(side="left", padx=5, pady=5)
-            #pass
-
-        else:
-            # update the panel
-            panel_image.configure(image=image_to_open)
-            panel_image.image_to_open = image_to_open
-
-# initialize the image panels
-panel_image = None
 
 def new_project_window():
-    top_window = Toplevel()
+    top_window = Toplevel(window)
     top_window.geometry("640x640")
     top_window.title("New Project")
     #window.iconbitmap("path/here/icon.ico")
     top_window.grab_set()
 
-    cat_label_A = Label(top_window, text="Cat A", font=("Heveltica, 14"))
-    cat_label_A.pack(pady=5, padx=5)
-    cat_label_B = Label(top_window, text="Cat B", font=("Heveltica, 14"))
-    cat_label_B.pack(pady=5, padx=5)
+    test_label_A = Label(top_window, text="test A", font=("Heveltica, 14"))
+    test_label_A.pack(pady=5, padx=5)
+    test_label_B = Label(top_window, text="test B", font=("Heveltica, 14"))
+    test_label_B.pack(pady=5, padx=5)
 
     # Create new project menu
     new_project_window_menu = Menu(top_window)
@@ -71,6 +43,38 @@ def new_project_window():
         top_window.update()
 
     ##############test############
+
+    # Open image
+    def open_image():
+
+        global panel_image
+        # Open a file chooser dialog and allow the user to select an input
+        # Image
+        img_path = filedialog.askopenfilename()
+        # ensure a file path was selected
+        if len(img_path) > 0:
+            # load the image from disk
+            image_to_open = cv2.imread(img_path)
+            # convert the images to PIL format...
+            image_to_open = Image.fromarray(image_to_open)
+            # ...and then to ImageTk format
+            image_to_open = ImageTk.PhotoImage(image_to_open)
+
+            # if the panels are None, initialize them
+            if panel_image is None:
+                # The panel image will store our original image
+                panel_image = Label(top_window, image=image_to_open)
+                panel_image.image_to_open = image_to_open
+                panel_image.pack(side="left", padx=5, pady=5)
+                #pass
+
+            else:
+                # update the panel
+                panel_image.configure(image=image_to_open)
+                panel_image.image_to_open = image_to_open
+
+# initialize the image panels
+#panel_image = None
 
     
 
@@ -87,6 +91,8 @@ def new_project_window():
 # TEMP: Just a test button
 #test_button = Button(window, text="Open window", command=new_project_window)
 #test_button.pack(pady=50, padx=50)
+
+panel_image = None
 
 def create_new_project():
     new_project_window()
