@@ -22,7 +22,8 @@ print(os.path.expanduser('~\Documents'))
 
 ##### Create OS path to save image #####
 # Create path on OS
-path_to_save_image = "../geoAnnotator/RESULT_DRAW_POLYGON"
+#path_to_save_image = "../geoAnnotator/RESULT_DRAW_POLYGON"
+path_to_save_image = "./src/geoAnnotator/RESULT_DRAW_POLYGON"
 # Check if path already exists
 if not os.path.exists(path_to_save_image):
     os.mkdir(path_to_save_image)
