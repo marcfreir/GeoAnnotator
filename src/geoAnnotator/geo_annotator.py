@@ -20,6 +20,15 @@ window.config(menu=main_menu)
 
 print(os.path.expanduser('~\Documents'))
 
+##### Create OS path to save image #####
+# Create path on OS
+path_to_save_image = "../geoAnnotator/RESULT_DRAW_POLYGON"
+# Check if path already exists
+if not os.path.exists(path_to_save_image):
+    os.mkdir(path_to_save_image)
+    
+print("Directory '% s' created" % path_to_save_image)
+
 
 ################### TO DRAW POLYGON ON IMAGE - BEGIN ##########
 
@@ -62,6 +71,7 @@ def new_project_window():
         # Open a file chooser dialog and allow the user to select an input
         # Image
         img_path = filedialog.askopenfilename()
+
         
         global image_to_open
         # ensure a file path was selected
@@ -111,6 +121,7 @@ def new_project_window():
 
                 
                 global done
+                #done = False
                 while(not done):
                     # This is our drawing loop, we just continuously draw new images
                     # and show them in the named window
@@ -141,8 +152,15 @@ def new_project_window():
                 cv2.imshow("image", new_image)
 
                 # Save the image drawn on canvas
-                #save_file_to_path
-                #img = cv2.imwrite(save_file_to_path)
+                #def save_image():
+                #image_to_save = new_image.copy()
+                #cv2.imread(path_to_save_image)
+                #os.chdir(path_to_save_image)
+                #cv2.imwrite(str(img_number)+".png",image_to_save)
+
+                global image_to_save
+                image_to_save = new_image.copy()
+                
 
                 # Waiting for the user to press any key
                 cv2.waitKey(0)
@@ -155,6 +173,7 @@ def new_project_window():
                 panel_image.configure(image=image_to_open)
                 panel_image.image_to_open = image_to_open
 
+
 # initialize the image panels
 #panel_image = None
 
@@ -162,7 +181,7 @@ def new_project_window():
     # Add new project file menu
     new_project_menu = Menu(new_project_window_menu, tearoff=False)
     new_project_window_menu.add_cascade(label="Project file", menu=new_project_menu)
-    new_project_menu.add_command(label="Save this project", command=save_project)
+    new_project_menu.add_command(label="Save this project", command=save_image)
     new_project_menu.add_command(label="Open image in project", command=open_image)
     new_project_menu.add_command(label="Exit", command=exit_new_project)
     
@@ -177,6 +196,12 @@ def open_project():
 
 def save_project():
     pass
+
+def save_image():
+    #image_to_save = new_image.copy()
+    cv2.imread(path_to_save_image)
+    os.chdir(path_to_save_image)
+    cv2.imwrite(str(img_number)+".png",image_to_save)
 
 def exit_application():
     window.quit()
