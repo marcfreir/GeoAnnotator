@@ -23,7 +23,7 @@ print(os.path.expanduser('~\Documents'))
 ##### Create OS path to save image #####
 # Create path on OS
 #path_to_save_image = "../geoAnnotator/RESULT_DRAW_POLYGON"
-path_to_save_image = "./src/geoAnnotator/RESULT_DRAW_POLYGON"
+path_to_save_image = "../GeoAnnotator/src/geoAnnotator/RESULT_DRAW_POLYGON"
 # Check if path already exists
 if not os.path.exists(path_to_save_image):
     os.mkdir(path_to_save_image)
@@ -79,10 +79,13 @@ def new_project_window():
         if len(img_path) > 0:
             # load the image from disk
             image_to_open = cv2.imread(img_path)
+            # images in RGB order
+            image_to_open = cv2.cvtColor(image_to_open, cv2.COLOR_BGR2RGB)
             # convert the images to PIL format...
             image_to_open = Image.fromarray(image_to_open)
             # ...and then to ImageTk format
             image_to_open = ImageTk.PhotoImage(image_to_open)
+
 
 
             # if the panels are None, initialize them
@@ -200,7 +203,7 @@ def save_project():
 
 def save_image():
     #image_to_save = new_image.copy()
-    cv2.imread(path_to_save_image)
+    #cv2.imread(path_to_save_image)
     os.chdir(path_to_save_image)
     cv2.imwrite(str(img_number)+".png",image_to_save)
 
