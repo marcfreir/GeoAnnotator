@@ -102,7 +102,7 @@ def new_project_window():
                 image_temp = new_image.copy()
 
                 def on_mouse(event, x, y, buttons, user_param):
-                    global done, points, current,image_temp
+                    global done, points, current, image_temp
                     # Mouse callback that gets called for every mouse event (i.e. moving, clicking, etc.)
                     if done: # Nothing more to do
                         return
@@ -119,6 +119,26 @@ def new_project_window():
                         # Right click means we're done
                         print("Completing polygon with %d points." % len(points))
                         done = True
+
+                        #######test###
+                        if done == True:
+                            on_mouse
+                        """ if done == True:
+                            print("Hey let's start again!")
+
+                            if done == True: # Nothing more to do
+                                return
+                            if event == cv2.EVENT_MOUSEMOVE:
+                                # We want to be able to draw the line-in-progress, so update current mouse position
+                                current = (x, y)
+
+                            elif event == cv2.EVENT_LBUTTONDOWN:
+                                # Left click means adding a point at current position to the list of points
+                                print("Adding point #%d with position(%d,%d)" % (len(points), x, y))
+                                cv2.circle(new_image,(x,y),5,(0,200,0),-1)
+                                points.append([x, y])
+                                image_temp = new_image.copy() """
+                        #######test###
 
                 cv2.namedWindow("image")
                 cv2.setMouseCallback("image", on_mouse)
@@ -145,6 +165,8 @@ def new_project_window():
 
                     if cv2.waitKey(50) == ord('d'): # press d(done)
                         done = True
+                        #cv2.startWindowThread()
+                        print("Completing polygon with %d points." % len(points))
                         
 
                 # User finised entering the polygon points, so let's make the final drawing
