@@ -67,8 +67,10 @@ global current_polygon_point
 current_polygon_point = (0,0)
 global prev_current_point
 prev_current_point = (0,0)
-global image_number
-image_number = 0
+#global image_number
+#image_number = False
+global mask_on_image_name
+mask_on_image_name = False
 
 #############
 # Draw with mouse
@@ -185,7 +187,10 @@ def separate_mask_from_image():
         split_image = image.copy()
         cv2.imread(path_to_save_image)
         os.chdir(path_to_save_image)
-        cv2.imwrite(str(image_number)+".png", split_image)
+        mask_on_image_name = True
+        if mask_on_image_name == True:
+            mask_on_image_name = filedialog.asksaveasfilename(defaultextension=".png", filetypes=[("PNG","*.png"),("JPG","*.jpg")])
+            cv2.imwrite(str(mask_on_image_name)+".png", split_image)
 
     try:
         save_masked_image()
