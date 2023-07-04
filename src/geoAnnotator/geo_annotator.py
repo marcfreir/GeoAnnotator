@@ -34,6 +34,7 @@ class ImageBrowser:
         self.window.config(menu=menu_bar)
 
         file_menu = Menu(menu_bar, tearoff=0)
+        file_menu.add_command(label="Create Project Path", command=self.create_project_path)
         file_menu.add_command(label="Open Folder", command=self.open_folder)
         file_menu.add_separator()
         file_menu.add_command(label="Exit", command=self.window.quit)
@@ -83,6 +84,15 @@ class ImageBrowser:
         if self.images:
             image_path = self.images[self.current_index]
             gal.draw_polygon(image_path)
+
+    def create_project_path(self):
+        project_path = filedialog.askdirectory()
+        if project_path:
+            if os.path.exists(project_path):
+                print("Path already exists.")
+            else:
+                os.makedirs(project_path)
+                print("Project path created:", project_path)
 
 if __name__ == "__main__":
     image_browser = ImageBrowser()
