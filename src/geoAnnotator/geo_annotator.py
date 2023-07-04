@@ -25,6 +25,9 @@ class ImageBrowser:
         self.choose_button = Button(self.window, text="Choose", command=self.choose_image)
         self.choose_button.pack(pady=10)
 
+        self.status_label = Label(self.window, text="", bd=1, relief="sunken", anchor="w")
+        self.status_label.pack(side="bottom", fill="x")
+
         self.create_menu()
 
         self.show_current_image()
@@ -88,11 +91,14 @@ class ImageBrowser:
     def create_project_path(self):
         project_path = filedialog.askdirectory()
         if project_path:
-            if os.path.exists(project_path):
-                print("Path already exists.")
-            else:
+            if not os.path.exists(project_path):
                 os.makedirs(project_path)
-                print("Project path created:", project_path)
+                self.status_label.configure(text="New project created on: " + project_path)
+                print("New project created on: " + project_path)
+            else:
+                self.status_label.configure(text="Path already exists.")
+                print("Path already exists.")
+
 
 if __name__ == "__main__":
     image_browser = ImageBrowser()
