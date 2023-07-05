@@ -4,7 +4,7 @@
 
 Annotation for lithologies
 
-> Status: v1.0.0.0 (alpha) on-going
+> Status: v1.1.2.0 (alpha) on-going
 
 
 </div>
@@ -69,4 +69,12 @@ Done
 ### Screenshot 6
 
 <img src="screenshots/img6.png" alt="Screenshot 6" />
+
+### Screenshot 7
+
+<img src="screenshots/img7.png" alt="Screenshot 7" />
+
+### Screenshot 8
+
+<img src="screenshots/img8.png" alt="Screenshot 8" />
 </div>
