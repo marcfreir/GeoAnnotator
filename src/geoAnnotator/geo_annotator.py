@@ -1,5 +1,5 @@
 import os
-from tkinter import Tk, Label, Button, filedialog, Menu
+from tkinter import Tk, Label, Button, filedialog, Menu, Frame, ttk
 from PIL import ImageTk, Image
 import geoAnnotatorLabeler as gal
 
@@ -11,22 +11,28 @@ class ImageBrowser:
 
         self.window = Tk()
         self.window.title("GeoAnnotator")
-        self.window.geometry("800x500")
+        self.window.geometry("1200x720")
 
         self.image_label = Label(self.window)
         self.image_label.pack(pady=10)
 
-        self.previous_button = Button(self.window, text="Previous", command=self.show_previous)
-        self.previous_button.pack(side="left", padx=10)
-
-        self.next_button = Button(self.window, text="Next", command=self.show_next)
-        self.next_button.pack(side="right", padx=10)
+        self.separator = ttk.Separator(self.window, orient="horizontal")
+        self.separator.pack(fill="x", padx=10, pady=5)
 
         self.choose_button = Button(self.window, text="Choose", command=self.choose_image)
-        self.choose_button.pack(pady=10)
+        self.choose_button.pack(pady=5)
 
         self.status_label = Label(self.window, text="", bd=1, relief="sunken", anchor="w")
-        self.status_label.pack(side="bottom", fill="x")
+        self.status_label.pack(fill="x")
+
+        self.button_frame = Frame(self.window)
+        self.button_frame.pack(pady=10)
+
+        self.previous_button = Button(self.button_frame, text="Previous", command=self.show_previous)
+        self.previous_button.pack(side="left", padx=10)
+
+        self.next_button = Button(self.button_frame, text="Next", command=self.show_next)
+        self.next_button.pack(side="right", padx=10)
 
         self.create_menu()
 
@@ -58,20 +64,32 @@ class ImageBrowser:
             if os.path.splitext(file_name)[1].lower() in image_extensions:
                 images.append(os.path.join(self.folder_path, file_name))
         return images
-
+    
     def show_current_image(self):
+        default_image_path = "./GeoAnnotator/src/geoAnnotator/assets/geoAnnotator_main_frame.png"
+
         if self.images:
             image_path = self.images[self.current_index]
             image = Image.open(image_path)
-            
-            # Keep the aspect ratio of the images
-            width, height = image.size
-            #image = image.resize((400, 400), Image.LANCZOS)
-            image = image.resize((width//2, height//2), Image.LANCZOS)
+        else:
+            try:
+                image = Image.open(default_image_path)
+            except FileNotFoundError:
+                # Create a blank image if the default image is not found
+                image = Image.new("RGB", (1, 1), "white")
 
-            photo = ImageTk.PhotoImage(image)
-            self.image_label.configure(image=photo)
-            self.image_label.image = photo
+        # Resize the image to have a fixed height of 540 pixels while preserving the aspect ratio
+        height = 540
+        width = int((height / image.size[1]) * image.size[0])
+        image = image.resize((width, height), Image.LANCZOS)
+
+        photo = ImageTk.PhotoImage(image)
+        self.image_label.configure(image=photo)
+        self.image_label.image = photo
+
+
+
+
 
     def show_previous(self):
         if self.current_index > 0:
@@ -94,10 +112,8 @@ class ImageBrowser:
             if not os.path.exists(project_path):
                 os.makedirs(project_path)
                 self.status_label.configure(text="New project created on: " + project_path)
-                print("New project created on: " + project_path)
             else:
                 self.status_label.configure(text="Path already exists.")
-                print("Path already exists.")
 
 
 if __name__ == "__main__":
