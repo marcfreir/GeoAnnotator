@@ -41,6 +41,27 @@ Done
 > Licence: BSD 3-Clause
 
 
+<div align="center">
+
+Collaborators:
+
+<a href="https://github.com/italo-goncalves" style="border-radius: 50% !important;">
+  <img src="https://avatars.githubusercontent.com/u/17046467?v=4" alt="italo-goncalves" size="32" height="32" width="32" data-view-component="true" class="avatar circle">
+</a>
+
+<a href="https://github.com/leugimcr" style="border-radius: 50% !important;">
+  <img src="https://avatars.githubusercontent.com/u/133250344?v=4" alt="leugimcr" size="32" height="32" width="32" data-view-component="true" class="avatar circle">
+</a>
+
+<a href="https://github.com/marcfreir" style="border-radius: 50% !important;">
+  <img src="https://avatars.githubusercontent.com/u/12809691?v=4" alt="marcfreir" size="32" height="32" width="32" data-view-component="true" class="avatar circle">
+</a>
+
+
+
+<!-- ![GitHub]([https://github.com/heartexlabs/label-studio/workflows/label-studio:build/badge.svg](https://github.com/italo-goncalves)) ![GitHub release](https://img.shields.io/github/v/release/heartexlabs/label-studio?include_prereleases) -->
+
+</div>
 
 
 
