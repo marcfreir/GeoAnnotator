@@ -4,7 +4,7 @@
 
 Annotation for lithologies
 
-> Status: v1.1.2.0 (alpha) on-going
+> Status: v0.0.2 (beta) on-going
 
 
 </div>
@@ -12,8 +12,8 @@ Annotation for lithologies
 ```
 Resources:
 
-Python: python3.8 venv
-Pip packages: Pillow, Tkinter, Numpy, OpenCV
+Python: python3.12.3 venv
+Pip packages: Pillow, PyQt5, Numpy
 
 Status: On-going
 ```
