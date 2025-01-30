@@ -10,6 +10,7 @@ from PyQt5.QtWidgets import (
 from PyQt5.QtGui import QImage, QPixmap, QPainter, QColor, QPen, QPainterPath
 from PyQt5.QtCore import Qt, QPoint, QEvent
 from PIL import Image, ImageDraw
+import tifffile
 
 class CustomGraphicsView(QGraphicsView):
     def __init__(self, main_window):
@@ -92,7 +93,7 @@ class ImageSegmentationApp(QMainWindow):
         self.open_button.clicked.connect(self.open_image)
         button_layout.addWidget(self.open_button)
 
-        self.color_button = QPushButton('Choose Color')
+        self.color_button = QPushButton('Create New Class | Pick Color')
         self.color_button.clicked.connect(self.choose_color)
         button_layout.addWidget(self.color_button)
 
@@ -128,11 +129,31 @@ class ImageSegmentationApp(QMainWindow):
 
     def open_image(self):
         file_path, _ = QFileDialog.getOpenFileName(
-            self, 'Open Image', '', 'Image Files (*.png *.jpg *.jpeg *.bmp)'
+            self, 'Open Image', '', 'Image Files (*.png *.jpg *.jpeg *.bmp *.tif *.tiff)'
         )
+
         if file_path:
             self.image_path = file_path
-            self.image = Image.open(file_path).convert('RGB')
+            
+            # Handle TIFF files differently
+            if file_path.lower().endswith(('.tif', '.tiff')):
+                try:
+                    # Read TIFF using tifffile
+                    tiff_img = tifffile.imread(file_path)
+                    # Convert numpy array to PIL Image
+                    self.image = Image.fromarray(tiff_img).convert('RGB')
+                except Exception as e:
+                    self.statusBar.showMessage(f"Error opening TIFF: {str(e)}", 5000)
+                    return
+            else:
+                # Handle other formats with PIL
+                try:
+                    self.image = Image.open(file_path).convert('RGB')
+                except Exception as e:
+                    self.statusBar.showMessage(f"Error opening image: {str(e)}", 5000)
+                    return
+
+            # Rest of the loading logic
             self.scene.clear()
             self.current_label = []
             self.labels = []
